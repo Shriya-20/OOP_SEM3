@@ -1,0 +1,357 @@
+Q1.
+
+package week8;
+
+import java.util.Scanner;
+
+class InvalidEntryException  extends Exception  
+{  
+    public InvalidEntryException (String str)  
+    {  
+        
+        super(str);
+    
+          
+    }  
+}  
+public class q1 
+{  
+	static void validate (String a) throws InvalidEntryException{ 
+		int ch = a.charAt(0);
+        if((ch>=97 && ch<=122) || (ch>=65 && ch<=90) ){  
+   
+         // throw an object of user defined exception  
+         throw new InvalidEntryException("Enter a numeric value");    
+     }  
+        else {   
+         System.out.println("Number appended in array");   
+         }   
+      }  
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc= new Scanner(System.in);
+		int arr[]=new int[3];
+		int y;
+		for(int j=0;j<3;j++) 
+		{
+			String x;
+			System.out.println("Enter your value: ");
+			x=sc.next();
+			
+		try  
+	        {  
+	            // calling the method 
+			validate(x);	
+			y=Integer.parseInt(x);
+	        arr[j]=y;  
+	        }  
+	        catch (InvalidEntryException ex )  
+	        {  
+	            System.out.println("Caught the exception");  
+	    
+	            // printing the message from InvalidAgeException object  
+	            System.out.println("Exception occured: " + ex);  
+	        } 
+		catch (NumberFormatException A )  
+        {  
+            System.out.println("Caught the exception");  
+    
+            // printing the message from InvalidAgeException object  
+            System.out.println("Exception occured: " + A);  
+        } 
+		 
+		}
+		
+	}
+}
+
+Q2.
+
+package week8;
+import java.util.Scanner;
+
+class Invalid_File_Extn  extends Exception  
+{  
+    public Invalid_File_Extn (String str)  
+    {  
+        
+        super(str);
+     
+          
+    }  
+}  
+public class q2 
+{  
+	static void validate (String arr1[]) throws Invalid_File_Extn{ 
+		int len=arr1.length;
+		String arr3[] = new String[len];
+		boolean flag=true;
+		for(int i=0;i<arr1.length;i++)
+		{
+			
+			String x=arr1[i];
+			String arr2[]=x.split("\\.");
+			arr3[i]=arr2[1];
+			
+		}
+		int b=arr3.length;
+		for(int j=0;j<b-1;j++)
+		{
+			if(arr3[j].equals(arr3[j+1]))
+			{
+				flag=true;
+			}
+			else
+			{
+				flag=false;
+			}
+			if(arr3[0].equals(arr3[b-1]))
+			{
+				flag=true;
+			}
+			else
+			{
+				flag=false;
+			}
+		}
+			
+			
+        if(flag==false ){  
+   
+        
+         throw new Invalid_File_Extn("Invalid File extensions");    
+     }  
+        else {   
+         System.out.println("All file extensions are the same");   
+         }   
+      }  
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc= new Scanner(System.in);
+		String arr1[]={"GG.xls","bb.txt","ss.txt"};
+			
+		try  
+	        {  
+	            
+			validate(arr1);	            
+	        }  
+	        catch (Invalid_File_Extn ex)  
+	        {  
+	            System.out.println("Caught the exception");  
+	    
+	           
+	            System.out.println("Exception occured: " + ex);  
+	        } 
+		 finally
+		 {
+			 System.out.println("Done"); 
+		 }
+		
+		
+	}
+}
+
+Q3.
+
+package week8;
+import java.util.Scanner;
+class q3
+{
+	public static void main(String args[]){
+		Scanner sc=new Scanner(System.in); 
+		int a = 0,b,x=0; 
+		String g;
+        System.out.println("Enter a string: "); 
+        g=sc.next();
+        try{
+        	a=Integer.parseInt(g);
+        	}
+        catch(NumberFormatException A){ 
+        		System.out.println("Error in converting string to integer");
+        		}
+        finally{
+        	System.out.println("Integer is "+a);
+        	}
+}
+}
+
+
+Q4.
+
+package week8;
+import java.util.Scanner;
+public class q4 {
+	 
+    
+    public static void main(String args[])
+        throws ArrayIndexOutOfBoundsException
+    {
+ 
+        
+        Scanner s = new Scanner(System.in);
+ 
+        
+        int arr[] = new int[5];
+ 
+        
+        try {
+            
+        	System.out.println("Enter 5 elements for array: ");
+        	
+        	
+        	
+            for (int i = 0; i < 6; i++) {
+ 
+            	arr[i] = s.nextInt();
+            }
+            System.out.println("Array input taken");
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            
+            System.out.println("Array Bounds Exceeded.");
+        }
+        
+    }
+}
+
+
+Q5.
+package week8;
+
+import java.util.Scanner;
+
+class student
+{	
+	String name,m1,m2,m3;
+	int roll;
+	student(String name, int roll, String m1,String m2,String m3)
+	{
+		this.name=name;
+		this.roll=roll;
+		this.m1=m1;
+		this.m2=m2;
+		this.m3=m3;
+	}	
+	
+
+}
+public class q5 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int a1 = 0,a2 = 0,a3 = 0,perc;
+		String grade;
+		System.out.println("Enter name: ");
+		String k=sc.next();
+		System.out.println("Enter roll number: ");
+		int l=sc.nextInt();
+		System.out.println("Enter marks1: ");
+		String m1=sc.next();
+		System.out.println("Enter marks2: ");
+		String m2=sc.next();
+		System.out.println("Enter marks3: ");
+		String m3=sc.next();
+		student s = new student(k,l,m1,m2,m3);
+		try{
+        	a1=Integer.parseInt(m1);
+        	a2=Integer.parseInt(m2);
+        	a3=Integer.parseInt(m3);
+        	perc=(a1+a2+a3)/3;
+			System.out.println("Percentage is "+perc);
+			if(perc>=90)
+			{
+				grade="A";
+			}
+			else if(perc>=80)
+			{
+				grade="B";
+			}
+			else if(perc>=70)
+			{
+				grade="C";
+			}
+			else if(perc>=60)
+			{
+				grade="D";
+			}
+			else if(perc>=50)
+			{
+				grade="E";
+			}
+			else
+			{
+				grade="F";
+			}
+			System.out.println("Grade is "+grade);
+        	
+        	}
+        catch(NumberFormatException A){ 
+        		System.out.println("Error in converting string to integer");
+        		}
+		
+
+	}
+
+}
+
+
+Q6.
+package week8;
+
+import java.util.Scanner;
+
+class InvalidEntryException  extends Exception  
+{  
+    public InvalidEntryException (String str)  
+    {  
+        
+        super(str);
+    
+          
+    }  
+}  
+public class q6 
+{  
+	static void validate (String a) throws InvalidEntryException{ 
+		int ch = a.charAt(0);
+        if((ch>=97 && ch<=122) || (ch>=65 && ch<=90) ){  
+   
+         
+         throw new InvalidEntryException("Invalid entry. Enter a numeric value.");    
+     }  
+        else {   
+         System.out.println("Number is: "+a);   
+         }   
+      }  
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc= new Scanner(System.in);
+		int arr[]=new int[3];
+		int y;
+		for(int j=0;j<3;j++) 
+		{
+			String x;
+			System.out.println("Enter your value");
+			x=sc.next();
+			
+		try  
+	        {  
+	            
+			validate(x);	            
+	        }  
+	        catch (InvalidEntryException ex)  
+	        {  
+	            System.out.println("Caught the exception");  
+	    
+	            
+	            System.out.println("Exception occured: " + ex);  
+	        } 
+		 
+		}
+		
+	}
+}
