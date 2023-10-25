@@ -1,0 +1,491 @@
+Q1.
+package week5A2;
+import java.util.*;
+
+
+class box
+{	
+	int length,breadth,height;
+	box(int l,int b,int h)
+	{
+		length=l;
+		breadth=b;
+		height=h ;
+	}
+	int volume()
+	{
+		return(length*breadth*height);
+	}
+}
+
+public class q1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.print("Enter length,breadth and height of box: ");
+		Scanner sc = new Scanner(System.in);
+		int l=sc.nextInt();
+		int b=sc.nextInt();
+		int h=sc.nextInt();
+		if (l>0&&b>0&&h>0)
+		{
+			box b1 = new box(l,b,h);
+			System.out.println("Volume of the box is: "+b1.volume());
+		}
+		else
+			System.out.println("Incorrect dimensions entered");
+
+	}
+
+}
+
+
+Q2.
+package week5A2;
+import java.util.Date;
+import java.util.Scanner;
+
+class time
+{
+	int hour,minute, second;
+	String hours ,seconds,minutes;
+	time()
+	{
+		hour=0;
+		minute =0 ;
+		second =0;
+	}
+	time(int a,int b,int c)
+	{
+		hour=a;
+		minute =b ;
+		second =c;
+	}
+	void display()
+	{	if (second<10)
+	{
+		seconds="0"+second;
+	}
+	else 
+		seconds=""+second;
+
+	if (minute<10)
+	{
+		minutes="0"+minute;
+	}
+	else 
+		minutes=""+minute;
+	
+		if (hour<10)
+	{
+		hours="0"+hour;
+	}
+	else
+		hours=""+hour;
+	
+	
+		System.out.println(hours+":"+minutes+":"+seconds);
+	}
+	void tot(time t1,time t2)
+	{
+		hour = t1.hour+t2.hour;
+		minute = t1.minute+t2.minute;
+		second = t1.second+t2.second;
+		if(second>60)
+		{
+			minute=minute+1;
+			second=second-60;
+		}
+		if(minute>60)
+		{
+			hour=hour+1;
+			minute=minute-60;
+		}
+		
+		
+		
+	}
+	
+	
+}
+
+public class q2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		
+		Date date = new Date();
+		System.out.println(date);
+		time t1 = new time( date.getHours(), date.getMinutes(), date.getSeconds());
+		
+	
+	
+	System.out.print("For the 2nd time\n");
+	
+	System.out.print("Enter hours: ");
+	int hours1=sc.nextInt();
+	System.out.print("Enter minutes: ");
+	int minutes2=sc.nextInt();
+	System.out.print("Enter seconds: ");
+	int seconds2=sc.nextInt();
+	time t2 = new time(hours1,minutes2,seconds2);
+	if (minutes2<60&&seconds2<60&&minutes2>0&&seconds2>0)
+	{
+		System.out.print("The entered time is: ");
+		t2.display();
+	}
+	else
+		System.out.print("Incorrect values entered");
+	time val= new time();
+	val.tot(t1,t2);
+	System.out.print("The sum of the two times is: ");
+	val.display();
+
+	}
+
+}
+
+
+Q3.
+package week5A2;
+import java.util.Scanner;
+class complex
+{
+	int real,imaginary;
+	complex(int a ,int b)
+	{
+		real=a;
+		imaginary=b;
+	}
+	void add(int a , complex c)
+	{
+		real=a+c.real;
+		imaginary=c.imaginary;
+		System.out.println("The sum of a complex number and an integer is: ");
+		System.out.println(real+"+"+imaginary+"i");
+	}
+	void add(complex c1 , complex c2)
+	{
+		real= c1.real+c2.real;
+		imaginary = c1.imaginary+c2.imaginary;
+		System.out.println("The sum of two complex numbers is: ");
+		System.out.println(real+"+"+imaginary+"i");
+	}
+}
+public class q3 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		complex sum= new complex(0,0);
+		System.out.println("For addition of integer and a complex number\n");
+		System.out.println("Enter real term of the complex number: ");
+		int r3=sc.nextInt();
+		System.out.println("Enter imaginary term of the complex number: ");
+		int i3=sc.nextInt();
+		complex c3= new complex(r3,i3);
+		System.out.println("The complex numeber is: ");
+		System.out.println(r3+"+" +i3+"i ");
+		System.out.println("Enter the integer: ");
+		int v=sc.nextInt();
+		sum.add(v,c3);
+		System.out.println("For addition of two complex numbers\n");
+		System.out.println("Enter real term of 1st complex number: ");
+		int r1=sc.nextInt();
+		System.out.println("Enter imaginary term of 1st complex number: ");
+		int i1=sc.nextInt();
+		System.out.println("The 1st complex numeber is: ");
+		System.out.println(r1+"+" +i1+"i ");
+		complex c1= new complex(r1,i1);
+		System.out.println("Enter real term of 2nd complex number: ");
+		int r2=sc.nextInt();
+		System.out.println("Enter imaginary term of 2nd complex number: ");
+		int i2=sc.nextInt();
+		System.out.println("The 2nd complex numeber is: ");
+		System.out.println(r2+"+"+i2+"i");
+
+		complex c2= new complex(r2,i2);
+		sum.add(c1,c2);
+
+	}
+
+}
+
+Q4.
+package week5A2;
+
+import java.util.Scanner;
+
+class parcel
+{
+	String name ; int id , weight ; float price;
+	parcel(String a,int b,int c)
+	{
+		name =a ;
+		id =b; 
+		weight=c;
+	}
+	void cost()
+	{
+		if (weight <=2)
+			price=32.5f;
+		else 
+			price=(float)(32.5+ (weight -2)*10.5);
+	}
+}
+
+public class q4 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.print("Enter the total number of parcels: ");
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		sc.nextLine();
+		parcel p[]=new parcel[n];
+		for (int i=0;i<n;i++)
+		{
+			System.out.println("Enter the details of parcel "+(i+1));
+			System.out.println("Enter the ID: ");
+			int v=sc.nextInt();
+			sc.nextLine();
+		    System.out.print("Enter the name: ");
+		    String name=sc.nextLine();
+		    System.out.println("Enter the weight: ");
+		    int w=sc.nextInt();
+		    if(w<0)
+		    {
+		    	System.out.println("Invalid entry");
+		    	break;
+		    }
+		    sc.nextLine();
+		    parcel j=new parcel(name,v,w);
+		    p[i]= j;
+		    p[i].cost();
+		    System.out.println("The price is : "+p[i].price);
+
+	}
+
+}
+}
+
+Q5.
+package week5A2;
+import java.util.*;
+
+public class array {
+int arr[]=new int[10];
+	
+	array()
+	{
+		for(int ele : arr)
+			ele=0;
+	}
+	
+	array(int x)
+	{
+		int i=1;
+		for(int y=0;y<10;y++)
+			arr[y]=x*(i++);
+	}
+	
+	void print()
+	{
+		for(int ele : arr)
+			System.out.print(ele+" ");
+		System.out.println();
+	}
+	
+	void search(int ele)
+	{
+		Arrays.sort(arr);
+		int flag = Arrays.binarySearch(arr,ele);
+		if(flag < 0)
+			System.out.println("Element not found.");
+		else
+			System.out.println("Element found at position: "+flag);
+	}
+	
+	static void comp(array a,array b)
+	{
+		int flag= Arrays.compare(a.arr,b.arr);
+		if(flag==0)
+			System.out.print("Same.");
+		else
+			System.out.print("Not same ");
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		array a1 = new array(1);
+		array a2 = new array(2);
+		
+		a1.print();
+		a2.print();
+		
+		a1.search(5);
+		a2.search(50);
+		
+		comp(a1,a2);
+
+
+	}
+
+}
+
+
+
+
+Q6.
+package week5;
+class eg
+{
+	int a=1,b=1,sum1,sum2,tot;
+	eg(int a)
+	{
+		
+		sum1=this.a+5;
+		sum2=a+5;
+	}
+	eg(int a,int b)
+	{
+		
+		sum1=this.a+this.b;
+		sum2=a+5;
+	}
+	void met(int t )
+	{
+		tot=t ;
+	}
+	void met(int a,int b)
+	{
+		tot= this.a+ this.b ;
+	}
+}
+
+public class Q6_demonstration {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		eg k=new eg(10,20);
+		k.met(50,60);
+		System.out.println("sum is "+"    "+k.sum1);
+		System.out.println("tot is "+k.tot);
+		eg a=new eg(5);
+		a.met(4);
+		System.out.println("sum is "+a.sum1+"    "+a.sum2);
+		System.out.println("tot is "+a.tot);
+		
+		
+		
+
+	}
+
+}
+Q Time alternate
+package week5A2;
+import java.util.Date;
+import java.util.Scanner;
+
+class time
+{
+	int hour,minute, second;
+	String hours ,seconds,minutes;
+	time()
+	{
+		hour=0;
+		minute =0 ;
+		second =0;
+	}
+	time(int a,int b,int c)
+	{
+		hour=a;
+		minute =b ;
+		second =c;
+	}
+	void display()
+	{	if (second<10)
+	{
+		seconds="0"+second;
+	}
+	else 
+		seconds=""+second;
+
+	if (minute<10)
+	{
+		minutes="0"+minute;
+	}
+	else 
+		minutes=""+minute;
+	
+		if (hour<10)
+	{
+		hours="0"+hour;
+	}
+	else
+		hours=""+hour;
+	
+	
+		System.out.println(hours+":"+minutes+":"+seconds);
+	}
+	void tot(time t1,time t2)
+	{
+		hour = t1.hour+t2.hour;
+		minute = t1.minute+t2.minute;
+		second = t1.second+t2.second;
+		if(second>60)
+		{
+			minute=minute+1;
+			second=second-60;
+		}
+		if(minute>60)
+		{
+			hour=hour+1;
+			minute=minute-60;
+		}
+		
+		
+		
+	}
+	
+	
+}
+
+public class q2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		
+		Date date = new Date();
+		System.out.println(date);
+		time t1 = new time( date.getHours(), date.getMinutes(), date.getSeconds());
+		
+	
+	
+	System.out.print("For the 2nd time\n");
+	
+	System.out.print("Enter hours: ");
+	int hours1=sc.nextInt();
+	System.out.print("Enter minutes: ");
+	int minutes2=sc.nextInt();
+	System.out.print("Enter seconds: ");
+	int seconds2=sc.nextInt();
+	time t2 = new time(hours1,minutes2,seconds2);
+	if (minutes2<60&&seconds2<60&&minutes2>0&&seconds2>0)
+	{
+		System.out.print("The entered time is: ");
+		t2.display();
+	}
+	else
+		System.out.print("Incorrect values entered");
+	time val= new time();
+	val.tot(t1,t2);
+	System.out.print("The sum of the two times is: ");
+	val.display();
+
+	}
+
+}
+
