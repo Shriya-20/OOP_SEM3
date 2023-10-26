@@ -1,0 +1,281 @@
+Q1.
+package week10;
+import java.io.*;
+
+public class q1 {
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("1. Write to a file");
+            System.out.println("2. Read from a file");
+            System.out.println("3. Copy from one file to another");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                int choice = Integer.parseInt(br.readLine());
+
+                switch (choice) {
+                    case 1:
+                        writeToFile();
+                        break;
+                    case 2:
+                        readFromFile();
+                        break;
+                    case 3:
+                        copyFiles();
+                        break;
+                    case 4:
+                        System.exit(0);
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+            } catch (IOException | NumberFormatException e) {
+                System.out.println("An error occurred. Please try again.");
+            }
+        }
+    }
+
+    // write
+    private static void writeToFile() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt"));
+            System.out.print("Enter text to write to the file: ");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String text = br.readLine();
+            writer.write(text);
+            writer.close();
+            System.out.println("Text written to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+        }
+    }
+
+    // read
+    private static void readFromFile() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("out.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading from the file.");
+        }
+    }
+
+    // copy 
+    private static void copyFiles() {
+        try {
+            FileInputStream input = new FileInputStream("out.txt");
+            FileOutputStream output = new FileOutputStream("outcopy.txt");
+            int data;
+            while ((data = input.read()) != -1) {
+                output.write(data);
+            }
+            input.close();
+            output.close();
+            System.out.println("File copied successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while copying files.");
+        }
+    }
+}
+
+Q2.
+package week10;
+
+import java.io.RandomAccessFile;
+import java.io.IOException;
+
+public class q2 {
+    public static void main(String[] args) {
+        try {
+            
+            RandomAccessFile file = new RandomAccessFile("data.dat", "rw");
+
+            
+            file.writeInt(50);
+            file.writeDouble(80.456);
+            file.writeUTF("String Data Given");
+
+            
+            file.seek(0);
+
+            
+            int intValue = file.readInt();
+            double doubleValue = file.readDouble();
+            String stringValue = file.readUTF();
+
+            System.out.println("Read data from file:");
+            System.out.println("Int Value: " + intValue);
+            System.out.println("Double Value: " + doubleValue);
+            System.out.println("String Value: " + stringValue);
+
+            file.seek(file.length()); 
+            file.writeInt(123);
+            file.writeDouble(2.71828);
+            file.writeUTF("New Written Data");
+            System.out.println("New Data Appended in the file");
+
+           
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+Q3.
+package week10;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class q3 {
+    public static void main(String[] args) {
+        String fileName = "out.txt"; 
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            int characterCount = 0;
+            int vowelCount = 0;
+            int lineCount = 0;
+            int wordCount = 0;
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                characterCount += line.length();
+                lineCount++;
+                wordCount += line.split("\\s+").length;
+
+                // Count vowels
+                for (char c : line.toLowerCase().toCharArray()) {
+                    if ("aeiou".indexOf(c) != -1) {
+                        vowelCount++;
+                    }
+                }
+            }
+
+            
+            bufferedReader.close();
+            fileReader.close();
+
+            
+            System.out.println("Character count is: " + characterCount);
+            System.out.println("Vowel count is: " + vowelCount);
+            System.out.println("Line count  is: " + lineCount);
+            System.out.println("Word count is: " + wordCount);
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+    }
+}
+
+Q4.
+package week10;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+class Employee {
+    private String name;
+    private int employeeNumber;
+    private double salary;
+    private String address;
+
+    public Employee(String name, int employeeNumber, double salary, String address) {
+        this.name = name;
+        this.employeeNumber = employeeNumber;
+        this.salary = salary;
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getEmployeeNumber() {
+        return employeeNumber;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Employee Number: " + employeeNumber + ", Salary: " + salary + ", Address: " + address;
+    }
+}
+
+public class q4 {
+    public static void main(String[] args) {
+        List<Employee> employees = new ArrayList<>();
+
+        // Add sample employee data
+        employees.add(new Employee("Annabeth Chase", 101, 50000.0, "123 Main St"));
+        employees.add(new Employee("Hermione Granger", 102, 60000.0, "456 Sub St"));
+        employees.add(new Employee("Minerva McGonagall", 103, 55000.0, "789 Oak St"));
+
+        // Sort employees by name
+        Collections.sort(employees, Comparator.comparing(Employee::getName));
+
+        // Write employee details to a file
+        try (PrintWriter writer = new PrintWriter("employee_details.txt")) {
+            for (Employee employee : employees) {
+                writer.println(employee);
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+
+        System.out.println("Employee details have been sorted and stored in 'employee_details.txt' file.");
+    }
+}
+
+Q5.
+
+package week10;
+
+import java.io.File;
+
+public class q5{
+    public static void main(String[] args) {
+        
+        String directoryPath = "D:\\220968336\\"; 
+
+       
+        File directory = new File(directoryPath);
+
+       
+        if (directory.exists() && directory.isDirectory()) {
+           
+            File[] filesAndDirs = directory.listFiles();
+
+            if (filesAndDirs != null) {
+                for (File fileOrDir : filesAndDirs) {
+                    if (fileOrDir.isDirectory()) {
+                        System.out.println("Directory: " + fileOrDir.getName());
+                    } else {
+                        System.out.println("File: " + fileOrDir.getName());
+                    }
+                }
+            }
+        } else {
+            System.out.println("The specified directory does not exist.");
+        }
+    }
+}
+
+
